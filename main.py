@@ -1,3 +1,4 @@
+import asyncio
 import sys
 import pygame
 from src.settings import (
@@ -11,7 +12,7 @@ from src.settings import (
 from src.level import Level
 
 
-def main():
+async def main():
     """Punto de entrada principal con HUD completo, cinemáticas y pantallas de fin de juego."""
     pygame.init()
     pygame.font.init()
@@ -142,9 +143,13 @@ def main():
 
         pygame.display.flip()
 
-    pygame.quit()
-    sys.exit()
+        # Pygbag necesita ceder el control al navegador en cada frame.
+        await asyncio.sleep(0)
+
+    # El navegador administra el ciclo de vida de Pygame en WebAssembly.
+    if sys.platform not in ("emscripten", "wasi"):
+        pygame.quit()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

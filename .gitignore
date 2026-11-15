@@ -1,0 +1,13 @@
+# Python bytecode and local environments
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Generated pygbag output, build cache, and local TLS certificates
+build/
+
+# Local environment and editor files
+.env
+.vscode/
